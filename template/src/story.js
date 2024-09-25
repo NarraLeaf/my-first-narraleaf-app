@@ -23,29 +23,22 @@ scene1.action([
     // Show the image for 1 second
     character1Image.show({
         duration: 1000,
-    }).toActions(),
+    }),
 
     // Say something
     character1
         .say("Hello, world!")
         .say("This is my first NarraLeaf story.")
-        .say("Start editing src/story.js and enjoy the journey!")
-        .toActions(),
+        .say("Start editing src/story.js and enjoy the journey!"),
 
     new Menu("Start the journey")
         .choose("Yes I will!", [
-            character1.say("Great! Let's start the journey!").toActions()
+            character1.say("Great! Let's start the journey!")
         ])
         .choose("No, I'm going to check the documentation", [
-            character1.say("Sure! Take your time!").toActions()
+            character1.say("Sure! Take your time!")
         ])
-        .toActions()
 ]);
-
-// Why we use "toActions()"?
-// Because we can chain the actions together, and "toActions()" is used to end the chain.
-// It is necessary to use "toActions()" at the end of each chain.
-// Do not call "toActions()" at other places, it will confuse the framework.
 
 // Add the scene to the story
 story.entry(scene1);
