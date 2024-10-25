@@ -11,9 +11,9 @@ function App() {
     elementStyles: {
       say: {
         // custom styles for the "say" container
-        container: "rounded-lg shadow-md p-4 bg-white",
+        containerClassName: "rounded-lg shadow-md p-4 bg-white",
       }
-    }
+    },
   }), []);
 
   return (
@@ -24,8 +24,9 @@ function App() {
           story={story}
           width="100vw"
           height="100vh"
-          onReady={({game}) => {
-            game.getLiveGame().newGame();
+          onReady={({liveGame}) => {
+            // game.getLiveGame().newGame();
+            liveGame.newGame();
           }}
         />
       </GameProviders>

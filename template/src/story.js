@@ -1,7 +1,7 @@
 // src/story.ts
 
 // First, import the necessary classes
-import { Story, Scene, Character, Image, Menu } from "narraleaf-react";
+import { Story, Scene, Character, Image, Menu, Word, Transform } from "narraleaf-react";
 
 // Create a new story
 // The name of the story is human-readable and is used for debugging purposes
@@ -9,13 +9,20 @@ const story = new Story("My First NarraLeaf Story");
 
 // Create a new scene
 // The name of the scene should be unique and is used for debugging purposes
-const scene1 = new Scene("scene1_hello_world");
+const scene1 = new Scene("scene1_hello_world", {
+    background: "#f0f0f0",
+    invertY: true,
+});
 
 // then let's create a "character" with image
 const character1 = new Character("me");
 const character1Image = new Image({
-    src: "https://placehold.it/200x400",
-    scale: 0.2
+    src: "https://placehold.co/300x600/orange/white",
+    position: {
+        xalign: 0.5,
+        yalign: 0.5,
+    },
+    scale: 0.8
 });
 
 // Add actions to the scene
@@ -25,11 +32,46 @@ scene1.action([
         duration: 1000,
     }),
 
+    // apply an animation to the image
+    character1Image.applyTransform(new Transform([
+        {
+            props: {
+                position: {
+                    yoffset: -30
+                }
+            },
+            options: {
+                duration: 300,
+                easing: "easeInOut"
+            }
+        },
+        {
+            props: {
+                position: {
+                    yoffset: 0
+                }
+            },
+            options: {
+                duration: 300,
+                easing: "easeInOut"
+            }
+        },
+    ], {
+        sync: false
+    })),
+
     // Say something
     character1
         .say("Hello, world!")
         .say("This is my first NarraLeaf story.")
-        .say("Start editing src/story.js and enjoy the journey!"),
+        .say([
+            "Start editing ",
+            new Word("src/story.js", {
+                color: "blue",
+                bold: true,
+            }),
+            " and enjoy the journey!"
+        ]),
 
     new Menu("Start the journey")
         .choose("Yes I will!", [
